@@ -161,7 +161,7 @@ export namespace artifactregistry_v1 {
     /**
      * The versions the operation failed to delete.
      */
-    failedVersions?: Schema$Version[];
+    failedVersions?: string[] | null;
   }
   /**
    * Associates `members`, or principals, with a `role`.
