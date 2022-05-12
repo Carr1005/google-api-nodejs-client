@@ -284,6 +284,10 @@ export namespace redis_v1beta1 {
      */
     maintenanceSchedule?: Schema$MaintenanceSchedule;
     /**
+     * Optional. The self service update maintenance version. The version is date based such as "20210712_00_00".
+     */
+    maintenanceVersion?: string | null;
+    /**
      * Required. Redis memory size in GiB.
      */
     memorySizeGb?: number | null;
@@ -1024,6 +1028,7 @@ export namespace redis_v1beta1 {
      *       //   "locationId": "my_locationId",
      *       //   "maintenancePolicy": {},
      *       //   "maintenanceSchedule": {},
+     *       //   "maintenanceVersion": "my_maintenanceVersion",
      *       //   "memorySizeGb": 0,
      *       //   "name": "my_name",
      *       //   "nodes": [],
@@ -1607,6 +1612,7 @@ export namespace redis_v1beta1 {
      *   //   "locationId": "my_locationId",
      *   //   "maintenancePolicy": {},
      *   //   "maintenanceSchedule": {},
+     *   //   "maintenanceVersion": "my_maintenanceVersion",
      *   //   "memorySizeGb": 0,
      *   //   "name": "my_name",
      *   //   "nodes": [],
@@ -2181,6 +2187,7 @@ export namespace redis_v1beta1 {
      *       //   "locationId": "my_locationId",
      *       //   "maintenancePolicy": {},
      *       //   "maintenanceSchedule": {},
+     *       //   "maintenanceVersion": "my_maintenanceVersion",
      *       //   "memorySizeGb": 0,
      *       //   "name": "my_name",
      *       //   "nodes": [],
