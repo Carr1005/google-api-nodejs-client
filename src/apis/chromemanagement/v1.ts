@@ -2317,6 +2317,161 @@ export namespace chromemanagement_v1 {
     }
 
     /**
+     * Get telemetry device.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/chromemanagement.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const chromemanagement = google.chromemanagement('v1');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/chrome.management.telemetry.readonly',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await chromemanagement.customers.telemetry.devices.get({
+     *     // Required. Name of the `TelemetryDevice` to return.
+     *     name: 'customers/my-customer/telemetry/devices/my-device',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "audioStatusReport": [],
+     *   //   "batteryInfo": [],
+     *   //   "batteryStatusReport": [],
+     *   //   "cpuInfo": [],
+     *   //   "cpuStatusReport": [],
+     *   //   "customer": "my_customer",
+     *   //   "deviceId": "my_deviceId",
+     *   //   "graphicsInfo": {},
+     *   //   "graphicsStatusReport": [],
+     *   //   "memoryInfo": {},
+     *   //   "memoryStatusReport": [],
+     *   //   "name": "my_name",
+     *   //   "networkStatusReport": [],
+     *   //   "orgUnitId": "my_orgUnitId",
+     *   //   "osUpdateStatus": [],
+     *   //   "serialNumber": "my_serialNumber",
+     *   //   "storageInfo": {},
+     *   //   "storageStatusReport": []
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    get(
+      params: Params$Resource$Customers$Telemetry$Devices$Get,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    get(
+      params?: Params$Resource$Customers$Telemetry$Devices$Get,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleChromeManagementV1TelemetryDevice>;
+    get(
+      params: Params$Resource$Customers$Telemetry$Devices$Get,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    get(
+      params: Params$Resource$Customers$Telemetry$Devices$Get,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>,
+      callback: BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+    ): void;
+    get(
+      params: Params$Resource$Customers$Telemetry$Devices$Get,
+      callback: BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+    ): void;
+    get(
+      callback: BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+    ): void;
+    get(
+      paramsOrCallback?:
+        | Params$Resource$Customers$Telemetry$Devices$Get
+        | BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleChromeManagementV1TelemetryDevice>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleChromeManagementV1TelemetryDevice>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Customers$Telemetry$Devices$Get;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Customers$Telemetry$Devices$Get;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://chromemanagement.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleChromeManagementV1TelemetryDevice>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleChromeManagementV1TelemetryDevice>(
+          parameters
+        );
+      }
+    }
+
+    /**
      * List all telemetry devices.
      * @example
      * ```js
@@ -2467,6 +2622,13 @@ export namespace chromemanagement_v1 {
     }
   }
 
+  export interface Params$Resource$Customers$Telemetry$Devices$Get
+    extends StandardParameters {
+    /**
+     * Required. Name of the `TelemetryDevice` to return.
+     */
+    name?: string;
+  }
   export interface Params$Resource$Customers$Telemetry$Devices$List
     extends StandardParameters {
     /**
