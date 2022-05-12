@@ -2787,7 +2787,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service',
      *
      *     // Request body metadata
@@ -3074,7 +3074,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service',
      *
      *     // Request body metadata
@@ -3221,7 +3221,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service',
      *
      *     // Request body metadata
@@ -3520,7 +3520,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3550,7 +3550,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3562,7 +3562,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4328,7 +4328,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.consumers.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service/consumers/my-consumer',
      *
      *     // Request body metadata
@@ -4472,7 +4472,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.consumers.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service/consumers/my-consumer',
      *
      *     // Request body metadata
@@ -4619,7 +4619,7 @@ export namespace servicemanagement_v1 {
      *
      *   // Do the magic
      *   const res = await servicemanagement.services.consumers.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'services/my-service/consumers/my-consumer',
      *
      *     // Request body metadata
@@ -4741,7 +4741,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Consumers$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4753,7 +4753,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Consumers$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4765,7 +4765,7 @@ export namespace servicemanagement_v1 {
   export interface Params$Resource$Services$Consumers$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
