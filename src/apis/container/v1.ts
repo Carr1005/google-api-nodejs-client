@@ -289,6 +289,10 @@ export namespace container_v1 {
      * Enable Binary Authorization for this cluster. If enabled, all container images will be validated by Binary Authorization.
      */
     enabled?: boolean | null;
+    /**
+     * Mode of operation for binauthz policy evaluation. Currently the only options are equivalent to enable/disable. If unspecified, defaults to DISABLED.
+     */
+    evaluationMode?: string | null;
   }
   /**
    * CancelOperationRequest cancels a single operation.
