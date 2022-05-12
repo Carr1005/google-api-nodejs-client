@@ -290,7 +290,7 @@ export namespace chromepolicy_v1 {
      */
     field?: string | null;
     /**
-     * Output only. Provides a list of fields and the values they must have for this field to be allowed to be set.
+     * Output only. Provides a list of fields and values. At least one of the fields must have the corresponding value in order for this field to be allowed to be set.
      */
     fieldDependencies?: Schema$GoogleChromePolicyV1PolicySchemaFieldDependencies[];
     /**
