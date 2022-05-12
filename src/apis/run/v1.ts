@@ -134,7 +134,7 @@ export namespace run_v1 {
     url?: string | null;
   }
   /**
-   * Specifies the audit configuration for a service. The configuration determines which permission types are logged, and what identities, if any, are exempted from logging. An AuditConfig must have one or more AuditLogConfigs. If there are AuditConfigs for both `allServices` and a specific service, the union of the two AuditConfigs is used for that service: the log_types specified in each AuditConfig are enabled, and the exempted_members in each AuditLogConfig are exempted. Example Policy with multiple AuditConfigs: { "audit_configs": [ { "service": "allServices", "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] \}, { "log_type": "DATA_WRITE" \}, { "log_type": "ADMIN_READ" \} ] \}, { "service": "sampleservice.googleapis.com", "audit_log_configs": [ { "log_type": "DATA_READ" \}, { "log_type": "DATA_WRITE", "exempted_members": [ "user:aliya@example.com" ] \} ] \} ] \} For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts jose@example.com from DATA_READ logging, and aliya@example.com from DATA_WRITE logging.
+   * Specifies the audit configuration for a service. The configuration determines which permission types are logged, and what identities, if any, are exempted from logging. An AuditConfig must have one or more AuditLogConfigs. If there are AuditConfigs for both `allServices` and a specific service, the union of the two AuditConfigs is used for that service: the log_types specified in each AuditConfig are enabled, and the exempted_members in each AuditLogConfig are exempted. Example Policy with multiple AuditConfigs: { "audit_configs": [ { "service": "allServices", "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] \}, { "log_type": "DATA_WRITE" \}, { "log_type": "ADMIN_READ" \} ] \}, { "service": "sampleservice.googleapis.com", "audit_log_configs": [ { "log_type": "DATA_READ" \}, { "log_type": "DATA_WRITE", "exempted_members": [ "user:aliya@example.com" ] \} ] \} ] \} For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts `jose@example.com` from DATA_READ logging, and `aliya@example.com` from DATA_WRITE logging.
    */
   export interface Schema$AuditConfig {
     /**
@@ -389,19 +389,6 @@ export namespace run_v1 {
      * (Optional) Protocol for port. Must be "TCP". Defaults to "TCP".
      */
     protocol?: string | null;
-  }
-  /**
-   * ContainerStatus holds the information of container name and image digest value.
-   */
-  export interface Schema$ContainerStatus {
-    /**
-     * ImageDigest holds the resolved digest for the image specified, regardless of whether a tag or digest was originally specified in the Container object.
-     */
-    imageDigest?: string | null;
-    /**
-     * The name of the container, if specified.
-     */
-    name?: string | null;
   }
   /**
    * Resource to hold the state and status of a user's domain mapping. NOTE: This resource is currently in Beta.
@@ -707,6 +694,19 @@ export namespace run_v1 {
     message?: string | null;
   }
   /**
+   * Not supported by Cloud Run GRPCAction describes an action involving a GRPC port.
+   */
+  export interface Schema$GRPCAction {
+    /**
+     * Port number of the gRPC service. Number must be in the range 1 to 65535.
+     */
+    port?: number | null;
+    /**
+     * Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC.
+     */
+    service?: string | null;
+  }
+  /**
    * Not supported by Cloud Run HTTPGetAction describes an action based on HTTP Get requests.
    */
   export interface Schema$HTTPGetAction {
@@ -782,10 +782,6 @@ export namespace run_v1 {
      * The latest available observations of a job's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      */
     conditions?: Schema$GoogleCloudRunV1Condition[];
-    /**
-     * Status information for each of the specified containers. The status includes the resolved digest for specified images, which occurs during creation of the job.
-     */
-    containerStatuses?: Schema$ContainerStatus[];
     /**
      * Number of executions created for this job.
      */
@@ -1220,6 +1216,10 @@ export namespace run_v1 {
      * (Optional) Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
      */
     failureThreshold?: number | null;
+    /**
+     * (Optional) GRPCAction specifies an action involving a GRPC port. A field inlined from the Handler message.
+     */
+    grpc?: Schema$GRPCAction;
     /**
      * (Optional) HTTPGet specifies the http request to perform. A field inlined from the Handler message.
      */
@@ -5365,9 +5365,9 @@ export namespace run_v1 {
      *
      *   // Do the magic
      *   const res = await run.namespaces.services.create({
-     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:create_internal_service_request)
+     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      *     dryRun: 'placeholder-value',
-     *     // LINT.IfChange() The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     *     // The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      *     parent: 'namespaces/my-namespace',
      *
      *     // Request body metadata
@@ -5937,9 +5937,9 @@ export namespace run_v1 {
      *
      *   // Do the magic
      *   const res = await run.namespaces.services.replaceService({
-     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:replace_internal_service_request)
+     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      *     dryRun: 'placeholder-value',
-     *     // LINT.IfChange() The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     *     // The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      *     name: 'namespaces/my-namespace/services/my-service',
      *
      *     // Request body metadata
@@ -6061,11 +6061,11 @@ export namespace run_v1 {
   export interface Params$Resource$Namespaces$Services$Create
     extends StandardParameters {
     /**
-     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:create_internal_service_request)
+     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      */
     dryRun?: string;
     /**
-     * LINT.IfChange() The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     * The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      */
     parent?: string;
 
@@ -6142,11 +6142,11 @@ export namespace run_v1 {
   export interface Params$Resource$Namespaces$Services$Replaceservice
     extends StandardParameters {
     /**
-     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:replace_internal_service_request)
+     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      */
     dryRun?: string;
     /**
-     * LINT.IfChange() The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     * The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      */
     name?: string;
 
@@ -9334,9 +9334,9 @@ export namespace run_v1 {
      *
      *   // Do the magic
      *   const res = await run.projects.locations.services.create({
-     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:create_internal_service_request)
+     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      *     dryRun: 'placeholder-value',
-     *     // LINT.IfChange() The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     *     // The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      *     parent: 'projects/my-project/locations/my-location',
      *
      *     // Request body metadata
@@ -10036,9 +10036,9 @@ export namespace run_v1 {
      *
      *   // Do the magic
      *   const res = await run.projects.locations.services.replaceService({
-     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:replace_internal_service_request)
+     *     // Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      *     dryRun: 'placeholder-value',
-     *     // LINT.IfChange() The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     *     // The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      *     name: 'projects/my-project/locations/my-location/services/my-service',
      *
      *     // Request body metadata
@@ -10444,11 +10444,11 @@ export namespace run_v1 {
   export interface Params$Resource$Projects$Locations$Services$Create
     extends StandardParameters {
     /**
-     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:create_internal_service_request)
+     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      */
     dryRun?: string;
     /**
-     * LINT.IfChange() The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     * The namespace in which the service should be created. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      */
     parent?: string;
 
@@ -10536,11 +10536,11 @@ export namespace run_v1 {
   export interface Params$Resource$Projects$Locations$Services$Replaceservice
     extends StandardParameters {
     /**
-     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all` LINT.ThenChange(//depot/google3/google/cloud/serverless/internal/internal_service.proto:replace_internal_service_request)
+     * Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
      */
     dryRun?: string;
     /**
-     * LINT.IfChange() The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
+     * The name of the service being replaced. For Cloud Run (fully managed), replace {namespace\} with the project ID or number. It takes the form namespaces/{namespace\}. For example: namespaces/PROJECT_ID
      */
     name?: string;
 
