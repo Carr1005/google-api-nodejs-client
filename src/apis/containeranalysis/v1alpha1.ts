@@ -1197,6 +1197,19 @@ export namespace containeranalysis_v1alpha1 {
     vendor?: string | null;
   }
   /**
+   * Digest information.
+   */
+  export interface Schema$Digest {
+    /**
+     * `SHA1`, `SHA512` etc.
+     */
+    algo?: string | null;
+    /**
+     * Value of the digest encoded. For example: SHA512 - base64 encoding, SHA1 - hex encoding.
+     */
+    digestValue?: string | null;
+  }
+  /**
    * Provides information about the scan status of a discovered resource.
    */
   export interface Schema$Discovered {
@@ -1433,6 +1446,15 @@ export namespace containeranalysis_v1alpha1 {
      * Collection of file hashes.
      */
     fileHash?: Schema$Hash[];
+  }
+  /**
+   * Indicates the location at which a package was found.
+   */
+  export interface Schema$FileLocation {
+    /**
+     * For jars that are contained inside .war files, this filepath can indicate the path to war file combined with the path to jar file.
+     */
+    filePath?: string | null;
   }
   /**
    * FileNote represents an SPDX File Information section: https://spdx.github.io/spdx-spec/4-file-information/
@@ -1674,6 +1696,18 @@ export namespace containeranalysis_v1alpha1 {
    */
   export interface Schema$Installation {
     /**
+     * Output only. The CPU architecture for which packages in this distribution channel were built. Architecture will be blank for language packages.
+     */
+    architecture?: string | null;
+    /**
+     * Output only. The cpe_uri in [CPE format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package. The cpe_uri will be blank for language packages.
+     */
+    cpeUri?: string | null;
+    /**
+     * Licenses that have been declared by the authors of the package.
+     */
+    license?: Schema$License;
+    /**
      * All of the places within the filesystem versions of this package have been found.
      */
     location?: Schema$Location[];
@@ -1681,6 +1715,14 @@ export namespace containeranalysis_v1alpha1 {
      * Output only. The name of the installed package.
      */
     name?: string | null;
+    /**
+     * Output only. The type of package; whether native or non native (e.g., ruby gems, node.js packages, etc.).
+     */
+    packageType?: string | null;
+    /**
+     * Output only. The version of the package.
+     */
+    version?: Schema$Version;
   }
   export interface Schema$InTotoProvenance {
     /**
@@ -1736,7 +1778,7 @@ export namespace containeranalysis_v1alpha1 {
     directive?: string | null;
   }
   /**
-   * License information: https://spdx.github.io/spdx-spec/3-package-information/#315-declared-license
+   * License information.
    */
   export interface Schema$License {
     /**
@@ -1744,7 +1786,7 @@ export namespace containeranalysis_v1alpha1 {
      */
     comments?: string | null;
     /**
-     * Expression: https://spdx.github.io/spdx-spec/appendix-IV-SPDX-license-expressions/
+     * Often a single license can be used to represent the licensing terms. Sometimes it is necessary to include a choice of one or more licenses or some combination of license identifiers. Examples: "LGPL-2.1-only OR MIT", "LGPL-2.1-only AND MIT", "GPL-2.0-or-later WITH Bison-exception-2.2".
      */
     expression?: string | null;
   }
@@ -1805,7 +1847,7 @@ export namespace containeranalysis_v1alpha1 {
    */
   export interface Schema$Location {
     /**
-     * The cpe_uri in [cpe format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package.
+     * Deprecated. The cpe_uri in [cpe format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package.
      */
     cpeUri?: string | null;
     /**
@@ -1813,7 +1855,7 @@ export namespace containeranalysis_v1alpha1 {
      */
     path?: string | null;
     /**
-     * The version installed at this location.
+     * Deprecated. The version installed at this location.
      */
     version?: Schema$Version;
   }
@@ -2092,13 +2134,49 @@ export namespace containeranalysis_v1alpha1 {
    */
   export interface Schema$Package {
     /**
+     * The CPU architecture for which packages in this distribution channel were built. Architecture will be blank for language packages.
+     */
+    architecture?: string | null;
+    /**
+     * The cpe_uri in [CPE format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package. The cpe_uri will be blank for language packages.
+     */
+    cpeUri?: string | null;
+    /**
+     * The description of this package.
+     */
+    description?: string | null;
+    /**
+     * Hash value, typically a file digest, that allows unique identification a specific package.
+     */
+    digest?: Schema$Digest[];
+    /**
      * The various channels by which a package is distributed.
      */
     distribution?: Schema$Distribution[];
     /**
+     * Licenses that have been declared by the authors of the package.
+     */
+    license?: Schema$License;
+    /**
+     * A freeform text denoting the maintainer of this package.
+     */
+    maintainer?: string | null;
+    /**
      * The name of the package.
      */
     name?: string | null;
+    /**
+     * The type of package; whether native or non native (e.g., ruby gems, node.js packages, etc.).
+     */
+    packageType?: string | null;
+    /**
+     * The homepage for this package.
+     */
+    url?: string | null;
+    /**
+     * The version of the package.
+     */
+    version?: Schema$Version;
   }
   /**
    * PackageInfoNote represents an SPDX Package Information section: https://spdx.github.io/spdx-spec/3-package-information/
@@ -2753,6 +2831,10 @@ export namespace containeranalysis_v1alpha1 {
      */
     cpeUri?: string | null;
     /**
+     * The file location at which this package was found.
+     */
+    fileLocation?: Schema$FileLocation[];
+    /**
      * The package being described.
      */
     package?: string | null;
@@ -2769,6 +2851,14 @@ export namespace containeranalysis_v1alpha1 {
      * The CVSS score for this Vulnerability.
      */
     cvssScore?: number | null;
+    /**
+     * The full description of the CVSS for version 2.
+     */
+    cvssV2?: Schema$CVSS;
+    /**
+     * A list of CWE for this vulnerability. For details, see: https://cwe.mitre.org/index.html
+     */
+    cwe?: string[] | null;
     /**
      * All information about the package to specifically identify this vulnerability. One entry per (version range and cpe_uri) the package vulnerability has manifested in.
      */
@@ -3286,7 +3376,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.notes.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/notes/my-note',
      *
      *     // Request body metadata
@@ -3747,7 +3837,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.notes.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/notes/my-note',
      *
      *     // Request body metadata
@@ -3887,7 +3977,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.notes.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/notes/my-note',
      *
      *     // Request body metadata
@@ -4043,7 +4133,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Notes$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4094,7 +4184,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Notes$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4106,7 +4196,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Notes$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4778,7 +4868,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.occurrences.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/occurrences/my-occurrence',
      *
      *     // Request body metadata
@@ -5538,7 +5628,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.occurrences.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/occurrences/my-occurrence',
      *
      *     // Request body metadata
@@ -5678,7 +5768,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.projects.occurrences.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/occurrences/my-occurrence',
      *
      *     // Request body metadata
@@ -5830,7 +5920,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Occurrences$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -5903,7 +5993,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Occurrences$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -5915,7 +6005,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Projects$Occurrences$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -7209,7 +7299,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.providers.notes.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'providers/my-provider/notes/my-note',
      *
      *     // Request body metadata
@@ -7670,7 +7760,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.providers.notes.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'providers/my-provider/notes/my-note',
      *
      *     // Request body metadata
@@ -7810,7 +7900,7 @@ export namespace containeranalysis_v1alpha1 {
      *
      *   // Do the magic
      *   const res = await containeranalysis.providers.notes.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'providers/my-provider/notes/my-note',
      *
      *     // Request body metadata
@@ -7966,7 +8056,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Providers$Notes$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -8017,7 +8107,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Providers$Notes$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -8029,7 +8119,7 @@ export namespace containeranalysis_v1alpha1 {
   export interface Params$Resource$Providers$Notes$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
