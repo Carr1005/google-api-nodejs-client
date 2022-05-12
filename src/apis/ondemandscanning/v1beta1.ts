@@ -680,6 +680,19 @@ export namespace ondemandscanning_v1beta1 {
     directive?: string | null;
   }
   /**
+   * License information.
+   */
+  export interface Schema$License {
+    /**
+     * Comments
+     */
+    comments?: string | null;
+    /**
+     * Often a single license can be used to represent the licensing terms. Sometimes it is necessary to include a choice of one or more licenses or some combination of license identifiers. Examples: "LGPL-2.1-only OR MIT", "LGPL-2.1-only AND MIT", "GPL-2.0-or-later WITH Bison-exception-2.2".
+     */
+    expression?: string | null;
+  }
+  /**
    * The response message for Operations.ListOperations.
    */
   export interface Schema$ListOperationsResponse {
@@ -710,7 +723,7 @@ export namespace ondemandscanning_v1beta1 {
    */
   export interface Schema$Location {
     /**
-     * Required. The CPE URI in [CPE format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package.
+     * Deprecated. The CPE URI in [CPE format](https://cpe.mitre.org/specification/)
      */
     cpeUri?: string | null;
     /**
@@ -718,7 +731,7 @@ export namespace ondemandscanning_v1beta1 {
      */
     path?: string | null;
     /**
-     * The version installed at this location.
+     * Deprecated. The version installed at this location.
      */
     version?: Schema$Version;
   }
@@ -955,13 +968,33 @@ export namespace ondemandscanning_v1beta1 {
    */
   export interface Schema$PackageOccurrence {
     /**
-     * Required. All of the places within the filesystem versions of this package have been found.
+     * Output only. The CPU architecture for which packages in this distribution channel were built. Architecture will be blank for language packages.
+     */
+    architecture?: string | null;
+    /**
+     * Output only. The cpe_uri in [CPE format](https://cpe.mitre.org/specification/) denoting the package manager version distributing a package. The cpe_uri will be blank for language packages.
+     */
+    cpeUri?: string | null;
+    /**
+     * Licenses that have been declared by the authors of the package.
+     */
+    license?: Schema$License;
+    /**
+     * All of the places within the filesystem versions of this package have been found.
      */
     location?: Schema$Location[];
     /**
-     * Output only. The name of the installed package.
+     * Required. Output only. The name of the installed package.
      */
     name?: string | null;
+    /**
+     * Output only. The type of package; whether native or non native (e.g., ruby gems, node.js packages, etc.).
+     */
+    packageType?: string | null;
+    /**
+     * Output only. The version of the package.
+     */
+    version?: Schema$Version;
   }
   /**
    * Selects a repo using a Google Cloud Platform project ID (e.g., winged-cargo-31) and a repo name within that project.
