@@ -9602,7 +9602,7 @@ export namespace securitycenter_v1 {
      *
      *   // Do the magic
      *   const res = await securitycenter.organizations.sources.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'organizations/my-organization/sources/my-source',
      *
      *     // Request body metadata
@@ -10024,7 +10024,7 @@ export namespace securitycenter_v1 {
      *
      *   // Do the magic
      *   const res = await securitycenter.organizations.sources.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'organizations/my-organization/sources/my-source',
      *
      *     // Request body metadata
@@ -10166,7 +10166,7 @@ export namespace securitycenter_v1 {
      *
      *   // Do the magic
      *   const res = await securitycenter.organizations.sources.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'organizations/my-organization/sources/my-source',
      *
      *     // Request body metadata
@@ -10307,7 +10307,7 @@ export namespace securitycenter_v1 {
   export interface Params$Resource$Organizations$Sources$Getiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -10350,7 +10350,7 @@ export namespace securitycenter_v1 {
   export interface Params$Resource$Organizations$Sources$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -10362,7 +10362,7 @@ export namespace securitycenter_v1 {
   export interface Params$Resource$Organizations$Sources$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 

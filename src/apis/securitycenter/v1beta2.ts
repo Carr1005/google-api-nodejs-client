@@ -861,7 +861,7 @@ export namespace securitycenter_v1beta2 {
      */
     logSinkProject?: string | null;
     /**
-     * The resource name of the SecurityCenterSettings. Format: organizations/{organization\}/securityCenterSettings
+     * The resource name of the SecurityCenterSettings. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
      */
     name?: string | null;
     /**
@@ -1414,6 +1414,142 @@ export namespace securitycenter_v1beta2 {
         );
       } else {
         return createAPIRequest<Schema$OnboardingState>(parameters);
+      }
+    }
+
+    /**
+     * Get the SecurityCenterSettings resource.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/securitycenter.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const securitycenter = google.securitycenter('v1beta2');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await securitycenter.folders.getSecurityCenterSettings({
+     *     // Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
+     *     name: 'folders/my-folder/securityCenterSettings',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "logSinkProject": "my_logSinkProject",
+     *   //   "name": "my_name",
+     *   //   "orgServiceAccount": "my_orgServiceAccount"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    getSecurityCenterSettings(
+      params: Params$Resource$Folders$Getsecuritycentersettings,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    getSecurityCenterSettings(
+      params?: Params$Resource$Folders$Getsecuritycentersettings,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$SecurityCenterSettings>;
+    getSecurityCenterSettings(
+      params: Params$Resource$Folders$Getsecuritycentersettings,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    getSecurityCenterSettings(
+      params: Params$Resource$Folders$Getsecuritycentersettings,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$SecurityCenterSettings>,
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      params: Params$Resource$Folders$Getsecuritycentersettings,
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      paramsOrCallback?:
+        | Params$Resource$Folders$Getsecuritycentersettings
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$SecurityCenterSettings>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Folders$Getsecuritycentersettings;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Folders$Getsecuritycentersettings;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://securitycenter.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta2/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$SecurityCenterSettings>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$SecurityCenterSettings>(parameters);
       }
     }
 
@@ -2627,6 +2763,13 @@ export namespace securitycenter_v1beta2 {
     extends StandardParameters {
     /**
      * Required. The name of the OnboardingState to retrieve. Formats: * organizations/{organization\}/onboardingState * folders/{folder\}/onboardingState * projects/{project\}/onboardingState
+     */
+    name?: string;
+  }
+  export interface Params$Resource$Folders$Getsecuritycentersettings
+    extends StandardParameters {
+    /**
+     * Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
      */
     name?: string;
   }
@@ -3998,7 +4141,7 @@ export namespace securitycenter_v1beta2 {
      *
      *   // Do the magic
      *   const res = await securitycenter.organizations.getSecurityCenterSettings({
-     *     // Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings
+     *     // Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
      *     name: 'organizations/my-organization/securityCenterSettings',
      *   });
      *   console.log(res.data);
@@ -5461,7 +5604,7 @@ export namespace securitycenter_v1beta2 {
   export interface Params$Resource$Organizations$Getsecuritycentersettings
     extends StandardParameters {
     /**
-     * Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings
+     * Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
      */
     name?: string;
   }
@@ -6814,6 +6957,142 @@ export namespace securitycenter_v1beta2 {
     }
 
     /**
+     * Get the SecurityCenterSettings resource.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/securitycenter.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const securitycenter = google.securitycenter('v1beta2');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await securitycenter.projects.getSecurityCenterSettings({
+     *     // Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
+     *     name: 'projects/my-project/securityCenterSettings',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "logSinkProject": "my_logSinkProject",
+     *   //   "name": "my_name",
+     *   //   "orgServiceAccount": "my_orgServiceAccount"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    getSecurityCenterSettings(
+      params: Params$Resource$Projects$Getsecuritycentersettings,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    getSecurityCenterSettings(
+      params?: Params$Resource$Projects$Getsecuritycentersettings,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$SecurityCenterSettings>;
+    getSecurityCenterSettings(
+      params: Params$Resource$Projects$Getsecuritycentersettings,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    getSecurityCenterSettings(
+      params: Params$Resource$Projects$Getsecuritycentersettings,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$SecurityCenterSettings>,
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      params: Params$Resource$Projects$Getsecuritycentersettings,
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      callback: BodyResponseCallback<Schema$SecurityCenterSettings>
+    ): void;
+    getSecurityCenterSettings(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Getsecuritycentersettings
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$SecurityCenterSettings>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$SecurityCenterSettings>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Getsecuritycentersettings;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Getsecuritycentersettings;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://securitycenter.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta2/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$SecurityCenterSettings>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$SecurityCenterSettings>(parameters);
+      }
+    }
+
+    /**
      * Get the SecurityHealthAnalyticsSettings resource.
      * @example
      * ```js
@@ -8024,6 +8303,13 @@ export namespace securitycenter_v1beta2 {
     extends StandardParameters {
     /**
      * Required. The name of the OnboardingState to retrieve. Formats: * organizations/{organization\}/onboardingState * folders/{folder\}/onboardingState * projects/{project\}/onboardingState
+     */
+    name?: string;
+  }
+  export interface Params$Resource$Projects$Getsecuritycentersettings
+    extends StandardParameters {
+    /**
+     * Required. The name of the SecurityCenterSettings to retrieve. Format: organizations/{organization\}/securityCenterSettings Format: folders/{folder\}/securityCenterSettings Format: projects/{project\}/securityCenterSettings
      */
     name?: string;
   }
