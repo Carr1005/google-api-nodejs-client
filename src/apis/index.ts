@@ -103,6 +103,7 @@ import {
   VERSIONS as baremetalsolutionVersions,
   baremetalsolution,
 } from './baremetalsolution';
+import {VERSIONS as beyondcorpVersions, beyondcorp} from './beyondcorp';
 import {VERSIONS as bigqueryVersions, bigquery} from './bigquery';
 import {
   VERSIONS as bigqueryconnectionVersions,
@@ -633,6 +634,7 @@ export const APIS: APIList = {
   assuredworkloads: assuredworkloadsVersions,
   authorizedbuyersmarketplace: authorizedbuyersmarketplaceVersions,
   baremetalsolution: baremetalsolutionVersions,
+  beyondcorp: beyondcorpVersions,
   bigquery: bigqueryVersions,
   bigqueryconnection: bigqueryconnectionVersions,
   bigquerydatatransfer: bigquerydatatransferVersions,
@@ -883,6 +885,7 @@ export class GeneratedAPIs {
   assuredworkloads = assuredworkloads;
   authorizedbuyersmarketplace = authorizedbuyersmarketplace;
   baremetalsolution = baremetalsolution;
+  beyondcorp = beyondcorp;
   bigquery = bigquery;
   bigqueryconnection = bigqueryconnection;
   bigquerydatatransfer = bigquerydatatransfer;
