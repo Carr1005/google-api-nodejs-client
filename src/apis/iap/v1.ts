@@ -2526,7 +2526,7 @@ export namespace iap_v1 {
      *
      *   // Do the magic
      *   const res = await iap.getIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: '.*',
      *
      *     // Request body metadata
@@ -2795,7 +2795,7 @@ export namespace iap_v1 {
      *
      *   // Do the magic
      *   const res = await iap.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: '.*',
      *
      *     // Request body metadata
@@ -2933,7 +2933,7 @@ export namespace iap_v1 {
      *
      *   // Do the magic
      *   const res = await iap.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: '.*',
      *
      *     // Request body metadata
@@ -3196,7 +3196,7 @@ export namespace iap_v1 {
 
   export interface Params$Resource$V1$Getiampolicy extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3214,7 +3214,7 @@ export namespace iap_v1 {
   }
   export interface Params$Resource$V1$Setiampolicy extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3226,7 +3226,7 @@ export namespace iap_v1 {
   export interface Params$Resource$V1$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
