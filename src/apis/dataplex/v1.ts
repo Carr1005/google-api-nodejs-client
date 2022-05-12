@@ -1474,6 +1474,10 @@ export namespace dataplex_v1 {
      */
     executionSpec?: Schema$GoogleCloudDataplexV1TaskExecutionSpec;
     /**
+     * Output only. Status of the latest task executions.
+     */
+    executionStatus?: Schema$GoogleCloudDataplexV1TaskExecutionStatus;
+    /**
      * Optional. User-defined labels for the task.
      */
     labels?: {[key: string]: string} | null;
@@ -1515,9 +1519,26 @@ export namespace dataplex_v1 {
      */
     maxJobExecutionLifetime?: string | null;
     /**
+     * Optional. The project in which jobs are run. By default, the project containing the Lake is used. If a project is provided, the executionspec.service_account must belong to this same project.
+     */
+    project?: string | null;
+    /**
      * Required. Service account to use to execute a task. If not provided, the default Compute service account for the project is used.
      */
     serviceAccount?: string | null;
+  }
+  /**
+   * Status of the task execution (e.g. Jobs).
+   */
+  export interface Schema$GoogleCloudDataplexV1TaskExecutionStatus {
+    /**
+     * Output only. latest job execution
+     */
+    latestJob?: Schema$GoogleCloudDataplexV1Job;
+    /**
+     * Output only. Last update time of the status.
+     */
+    updateTime?: string | null;
   }
   /**
    * Configuration for the underlying infrastructure used to run workloads.
@@ -1843,7 +1864,7 @@ export namespace dataplex_v1 {
      */
     condition?: Schema$GoogleTypeExpr;
     /**
-     * Specifies the principals requesting access for a Cloud Platform resource. members can have the following values: allUsers: A special identifier that represents anyone who is on the internet; with or without a Google account. allAuthenticatedUsers: A special identifier that represents anyone who is authenticated with a Google account or a service account. user:{emailid\}: An email address that represents a specific Google account. For example, alice@example.com . serviceAccount:{emailid\}: An email address that represents a service account. For example, my-other-app@appspot.gserviceaccount.com. group:{emailid\}: An email address that represents a Google group. For example, admins@example.com. deleted:user:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a user that has been recently deleted. For example, alice@example.com?uid=123456789012345678901. If the user is recovered, this value reverts to user:{emailid\} and the recovered user retains the role in the binding. deleted:serviceAccount:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901. If the service account is undeleted, this value reverts to serviceAccount:{emailid\} and the undeleted service account retains the role in the binding. deleted:group:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, admins@example.com?uid=123456789012345678901. If the group is recovered, this value reverts to group:{emailid\} and the recovered group retains the role in the binding. domain:{domain\}: The G Suite domain (primary) that represents all the users of that domain. For example, google.com or example.com.
+     * Specifies the principals requesting access for a Google Cloud resource. members can have the following values: allUsers: A special identifier that represents anyone who is on the internet; with or without a Google account. allAuthenticatedUsers: A special identifier that represents anyone who is authenticated with a Google account or a service account. user:{emailid\}: An email address that represents a specific Google account. For example, alice@example.com . serviceAccount:{emailid\}: An email address that represents a service account. For example, my-other-app@appspot.gserviceaccount.com. group:{emailid\}: An email address that represents a Google group. For example, admins@example.com. deleted:user:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a user that has been recently deleted. For example, alice@example.com?uid=123456789012345678901. If the user is recovered, this value reverts to user:{emailid\} and the recovered user retains the role in the binding. deleted:serviceAccount:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901. If the service account is undeleted, this value reverts to serviceAccount:{emailid\} and the undeleted service account retains the role in the binding. deleted:group:{emailid\}?uid={uniqueid\}: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, admins@example.com?uid=123456789012345678901. If the group is recovered, this value reverts to group:{emailid\} and the recovered group retains the role in the binding. domain:{domain\}: The G Suite domain (primary) that represents all the users of that domain. For example, google.com or example.com.
      */
     members?: string[] | null;
     /**
@@ -1877,7 +1898,7 @@ export namespace dataplex_v1 {
    */
   export interface Schema$GoogleIamV1SetIamPolicyRequest {
     /**
-     * REQUIRED: The complete policy to be applied to the resource. The size of the policy is limited to a few 10s of KB. An empty policy is a valid policy but certain Cloud Platform services (such as Projects) might reject them.
+     * REQUIRED: The complete policy to be applied to the resource. The size of the policy is limited to a few 10s of KB. An empty policy is a valid policy but certain Google Cloud services (such as Projects) might reject them.
      */
     policy?: Schema$GoogleIamV1Policy;
     /**
@@ -1890,7 +1911,7 @@ export namespace dataplex_v1 {
    */
   export interface Schema$GoogleIamV1TestIamPermissionsRequest {
     /**
-     * The set of permissions to check for the resource. Permissions with wildcards (such as '*' or 'storage.*') are not allowed. For more information see IAM Overview (https://cloud.google.com/iam/docs/overview#permissions).
+     * The set of permissions to check for the resource. Permissions with wildcards (such as * or storage.*) are not allowed. For more information see IAM Overview (https://cloud.google.com/iam/docs/overview#permissions).
      */
     permissions?: string[] | null;
   }
@@ -2812,7 +2833,7 @@ export namespace dataplex_v1 {
      *   const res = await dataplex.projects.locations.lakes.getIamPolicy({
      *     // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *     'options.requestedPolicyVersion': 'placeholder-value',
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/locations/my-location/lakes/my-lake',
      *   });
      *   console.log(res.data);
@@ -3257,7 +3278,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/locations/my-location/lakes/my-lake',
      *
      *     // Request body metadata
@@ -3403,7 +3424,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource: 'projects/my-project/locations/my-location/lakes/my-lake',
      *
      *     // Request body metadata
@@ -3565,7 +3586,7 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
@@ -3615,7 +3636,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3627,7 +3648,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -3838,7 +3859,7 @@ export namespace dataplex_v1 {
      *   const res = await dataplex.projects.locations.lakes.content.getIamPolicy({
      *     // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *     'options.requestedPolicyVersion': 'placeholder-value',
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/content/[^/]+',
      *   });
@@ -3977,7 +3998,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.content.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/content/[^/]+',
      *
@@ -4126,7 +4147,7 @@ export namespace dataplex_v1 {
      *   // Do the magic
      *   const res =
      *     await dataplex.projects.locations.lakes.content.testIamPermissions({
-     *       // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/content/[^/]+',
      *
@@ -4255,14 +4276,14 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
   export interface Params$Resource$Projects$Locations$Lakes$Content$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -4274,7 +4295,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Content$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -5606,7 +5627,7 @@ export namespace dataplex_v1 {
      *     {
      *       // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *       'options.requestedPolicyVersion': 'placeholder-value',
-     *       // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/environments/my-environment',
      *     }
@@ -6056,7 +6077,7 @@ export namespace dataplex_v1 {
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.environments.setIamPolicy(
      *     {
-     *       // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/environments/my-environment',
      *
@@ -6206,7 +6227,7 @@ export namespace dataplex_v1 {
      *   // Do the magic
      *   const res =
      *     await dataplex.projects.locations.lakes.environments.testIamPermissions({
-     *       // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/environments/my-environment',
      *
@@ -6369,7 +6390,7 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
@@ -6419,7 +6440,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Environments$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -6431,7 +6452,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Environments$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -6662,6 +6683,7 @@ export namespace dataplex_v1 {
      *       //   "description": "my_description",
      *       //   "displayName": "my_displayName",
      *       //   "executionSpec": {},
+     *       //   "executionStatus": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
      *       //   "spark": {},
@@ -6957,6 +6979,7 @@ export namespace dataplex_v1 {
      *   //   "description": "my_description",
      *   //   "displayName": "my_displayName",
      *   //   "executionSpec": {},
+     *   //   "executionStatus": {},
      *   //   "labels": {},
      *   //   "name": "my_name",
      *   //   "spark": {},
@@ -7089,7 +7112,7 @@ export namespace dataplex_v1 {
      *   const res = await dataplex.projects.locations.lakes.tasks.getIamPolicy({
      *     // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *     'options.requestedPolicyVersion': 'placeholder-value',
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/tasks/my-task',
      *   });
@@ -7391,6 +7414,7 @@ export namespace dataplex_v1 {
      *       //   "description": "my_description",
      *       //   "displayName": "my_displayName",
      *       //   "executionSpec": {},
+     *       //   "executionStatus": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
      *       //   "spark": {},
@@ -7535,7 +7559,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.tasks.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/tasks/my-task',
      *
@@ -7683,7 +7707,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.tasks.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/tasks/my-task',
      *
@@ -7846,7 +7870,7 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
@@ -7896,7 +7920,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Tasks$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -7908,7 +7932,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Tasks$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -8860,7 +8884,7 @@ export namespace dataplex_v1 {
      *   const res = await dataplex.projects.locations.lakes.zones.getIamPolicy({
      *     // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *     'options.requestedPolicyVersion': 'placeholder-value',
-     *     // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone',
      *   });
@@ -9306,7 +9330,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.zones.setIamPolicy({
-     *     // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone',
      *
@@ -9454,7 +9478,7 @@ export namespace dataplex_v1 {
      *
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.zones.testIamPermissions({
-     *     // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *     // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *     resource:
      *       'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone',
      *
@@ -9617,7 +9641,7 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
@@ -9667,7 +9691,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Zones$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -9679,7 +9703,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Zones$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -10347,7 +10371,7 @@ export namespace dataplex_v1 {
      *     {
      *       // Optional. The maximum policy version that will be used to format the policy.Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected.Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset.The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1.To learn which resources support conditions in their IAM policies, see the IAM documentation (https://cloud.google.com/iam/help/conditions/resource-policies).
      *       'options.requestedPolicyVersion': 'placeholder-value',
-     *       // REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone/assets/my-asset',
      *     }
@@ -10799,7 +10823,7 @@ export namespace dataplex_v1 {
      *   // Do the magic
      *   const res = await dataplex.projects.locations.lakes.zones.assets.setIamPolicy(
      *     {
-     *       // REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone/assets/my-asset',
      *
@@ -10949,7 +10973,7 @@ export namespace dataplex_v1 {
      *   // Do the magic
      *   const res =
      *     await dataplex.projects.locations.lakes.zones.assets.testIamPermissions({
-     *       // REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     *       // REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      *       resource:
      *         'projects/my-project/locations/my-location/lakes/my-lake/zones/my-zone/assets/my-asset',
      *
@@ -11112,7 +11136,7 @@ export namespace dataplex_v1 {
      */
     'options.requestedPolicyVersion'?: number;
     /**
-     * REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
   }
@@ -11162,7 +11186,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Zones$Assets$Setiampolicy
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy is being specified. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
@@ -11174,7 +11198,7 @@ export namespace dataplex_v1 {
   export interface Params$Resource$Projects$Locations$Lakes$Zones$Assets$Testiampermissions
     extends StandardParameters {
     /**
-     * REQUIRED: The resource for which the policy detail is being requested. See the operation documentation for the appropriate value for this field.
+     * REQUIRED: The resource for which the policy detail is being requested. See Resource names (https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.
      */
     resource?: string;
 
