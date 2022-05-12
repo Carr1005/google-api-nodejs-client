@@ -1751,6 +1751,10 @@ export namespace docs_v1 {
      */
     namedStyleType?: string | null;
     /**
+     * Whether the current paragraph should always start at the beginning of a page. If unset, the value is inherited from the parent.
+     */
+    pageBreakBefore?: boolean | null;
+    /**
      * The shading of the paragraph. If unset, the value is inherited from the parent.
      */
     shading?: Schema$Shading;
@@ -1839,6 +1843,10 @@ export namespace docs_v1 {
      * Indicates if there was a suggested change to named_style_type.
      */
     namedStyleTypeSuggested?: boolean | null;
+    /**
+     * Indicates if there was a suggested change to page_break_before.
+     */
+    pageBreakBeforeSuggested?: boolean | null;
     /**
      * A mask that indicates which of the fields in shading have been changed in this suggestion.
      */
