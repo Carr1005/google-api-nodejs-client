@@ -989,7 +989,7 @@ export namespace networkmanagement_v1beta1 {
     /**
      * Display information of an App Engine service version.
      */
-    appEngineVersionInfo?: Schema$AppEngineVersionInfo;
+    appEngineVersion?: Schema$AppEngineVersionInfo;
     /**
      * This is a step that leads to the final state Drop.
      */
