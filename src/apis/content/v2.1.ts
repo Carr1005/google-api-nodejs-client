@@ -291,7 +291,7 @@ export namespace content_v2_1 {
      */
     region?: string | null;
     /**
-     * Street-level part of the address.
+     * Street-level part of the address. Use `\n` to add a second line.
      */
     streetAddress?: string | null;
   }
@@ -324,7 +324,7 @@ export namespace content_v2_1 {
   }
   export interface Schema$AccountBusinessInformation {
     /**
-     * The address of the business.
+     * The address of the business. Use `\n` to add a second address line.
      */
     address?: Schema$AccountAddress;
     /**
@@ -1045,6 +1045,10 @@ export namespace content_v2_1 {
      * Whether user can manage payment settings.
      */
     paymentsManager?: boolean | null;
+    /**
+     * Whether user is a reporting manager.
+     */
+    reportingManager?: boolean | null;
   }
   export interface Schema$AccountYouTubeChannelLink {
     /**
@@ -1078,7 +1082,7 @@ export namespace content_v2_1 {
      */
     postalCode?: string | null;
     /**
-     * Street-level part of the address.
+     * Street-level part of the address. Use `\n` to add a second line.
      */
     streetAddress?: string | null;
   }
@@ -2994,7 +2998,7 @@ export namespace content_v2_1 {
      */
     region?: string | null;
     /**
-     * Street-level part of the address.
+     * Street-level part of the address. Use `\n` to add a second line.
      */
     streetAddress?: string[] | null;
   }
@@ -7680,7 +7684,7 @@ export namespace content_v2_1 {
      */
     region?: string | null;
     /**
-     * Street-level part of the address.
+     * Street-level part of the address. Use `\n` to add a second line.
      */
     streetAddress?: string[] | null;
   }
