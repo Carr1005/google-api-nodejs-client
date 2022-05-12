@@ -245,13 +245,17 @@ export namespace cloudsearch_v1 {
     values?: string[] | null;
   }
   /**
-   * Proto representation of a custom emoji. May be used in both APIs and in Spanner, but certain fields should be restricted to one or the other. See the per-field documentation for details. NEXT_TAG: 11
+   * Proto representation of a custom emoji. May be used in both APIs and in Spanner, but certain fields should be restricted to one or the other. See the per-field documentation for details. NEXT_TAG: 13
    */
   export interface Schema$CustomEmoji {
     /**
      * ID for the underlying image data in Blobstore. This field should *only* be present in Spanner or within the server, but should not be exposed in public APIs.
      */
     blobId?: string | null;
+    /**
+     * Content type of the file used to upload the emoji. Used for takeout. Written to Spanner when the emoji is created.
+     */
+    contentType?: string | null;
     /**
      * Time when the Emoji was created, in microseconds. This field may be present in Spanner, within the server, or in public APIs.
      */
@@ -260,6 +264,10 @@ export namespace cloudsearch_v1 {
      * This field should *never* be persisted to Spanner.
      */
     creatorUserId?: Schema$UserId;
+    /**
+     * Output only. A short-lived URL clients can use for directly accessing a custom emoji image. This field is intended for API consumption, and should *never* be persisted to Spanner.
+     */
+    ephemeralUrl?: string | null;
     /**
      * This field should *never* be persisted to Spanner.
      */
@@ -574,14 +582,15 @@ export namespace cloudsearch_v1 {
     finalScore?: number | null;
     freshnessScore?: number | null;
     joinedSpacesAffinityScore?: number | null;
-    lastMessagePostedTimestampMicros?: string | null;
+    lastMessagePostedTimestampSecs?: string | null;
+    lastReadTimestampSecs?: string | null;
     memberMetadataCount?: number | null;
     messageScore?: number | null;
     numAucContacts?: string | null;
     smallContactListAffinityScore?: number | null;
     smallUnjoinedSpacesAffinityScore?: number | null;
     spaceAgeInDays?: number | null;
-    spaceCreationTimestampMicros?: string | null;
+    spaceCreationTimestampSecs?: string | null;
     topicalityScore?: number | null;
   }
   /**
